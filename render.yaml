@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: dashboard-backend
+    env: python
+    plan: free
+    buildCommand: "pip install -r backend/requirements.txt"
+    startCommand: "cd backend && gunicorn app:app --bind 0.0.0.0:10000"
+    envVars:
+      - key: PORT
+        value: 10000
+
+  - type: web
+    name: dashboard-frontend
+    env: node
+    plan: free
+    buildCommand: "cd frontend && npm install && npm run build"
+    startCommand: "cd frontend && npm run preview -- --port 3000"
